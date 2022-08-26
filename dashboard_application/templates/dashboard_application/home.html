@@ -1,7 +1,129 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<div class="w-full max-w-sm px-4 py-3 mx-auto my-24 bg-white rounded-md shadow-md dark:bg-gray-800">
-    <h1 class="text-red-700">Hello Dearie!</h1>
+<div class="w-full">
+    <main class="py-6 px-6 md:px-12">
+
+        <!-- SAERCH BAR -->
+        <div class="relative mb-6">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
+                    <path
+                        d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </span>
+
+            <input type="text"
+                class="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                placeholder="Search" id="search-bar">
+        </div>
+
+        <h5 class="mb-3 text-gray-500">My Files</h5>
+
+        <!-- MY FILES -->
+        {% for file in files %}
+        <div
+            class="w-full bg-white hover:bg-blue-200 hover:text-blue-900 duration-100 text-gray-700 rounded-md px-6 shadow-md flex justify-between mt-3">
+            <div class="flex-1 flex">
+                <input type="checkbox" name="selected" id="selected" class="mr-3">
+                <a href="{% url 'file_details' file.id %}"
+                    class="font-medium hidden md:block flex-1 py-3 file-titles">{{file.title}}</a>
+                <a href="{% url 'file_details' file.id %}"
+                    class="font-medium block md:hidden flex-1 py-3">{{file.title|truncatechars:10}}</a>
+            </div>
+            <div>
+                <span class="mt-2 text-sm text-sky-500 inline-block py-2">{{file.date_added}}</span>
+                <div class="inline-block">
+                    <button type="button" class="p-2 inline-flex items-center"
+                        data-dropdown-toggle="actions{{file.id}}">
+                        <i class="fas fa-ellipsis"></i>
+                    </button>
+
+
+                    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded-md shadow-lg my-4 max-h-80 overflow-auto"
+                        id="actions{{file.id}}">
+                        <ul class="py-1" aria-labelledby="actions{{file.id}}">
+                            <li>
+                                <a href="{{file.file.url}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2"
+                                    style="width: 150px;">
+                                    <i class="fas fa-download"></i>
+                                    Download
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'deletefile' file.id %}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2"
+                                    style="width: 150px;">
+                                    <i class="fas fa-trash text-red-600 py-2"></i>
+                                    Delete
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </main>
 </div>
+
+<button
+    class="open_add_file_form fixed bottom-9 right-9 bg-white rounded-full w-12 h-12 shadow-lg hover:bg-blue-500 hover:text-white duration-150"><i
+        class="fas fa-plus"></i></button>
+
+<div class="w-full absolute top-0 left-0 h-full flex justify-center items-center p-3 hidden add_file_form_holder"
+    style="background: rgba(0, 0, 0, .1);">
+    <div class="w-full max-w-md bg-white shadow-md p-3 rounded-md add_file_form">
+        <div class="flex">
+            <div class="flex flex-1 items-center">
+                <i class="fas fa-plus p-2 bg-blue-400 text-white rounded-full"></i>
+                <span class="font-medium px-3 text-gray-900 text-lg">Add a file</span>
+            </div>
+        </div>
+
+        <div class="pt-6 pb-3">
+            <form action="{% url 'addfile' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text"
+                    class="w-full py-2 px-4 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                    placeholder="Title" name="title" required>
+                <input type="file"
+                    class="w-full mt-6 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                    name="file" required>
+                <div class="text-center">
+                    <button class="py-2 px-6 mt-6 bg-blue-500 text-white rounded-md" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <button
+        class="close w-8 h-8 flex justify-center items-center bg-gray-100 rounded-full border-4 border-white absolute">&times;</button>
+</div>
+
+<script>
+    var search_bar = $("#search-bar")
+    var file_titles = $(".file-titles")
+
+    $(search_bar).keyup((e) => {
+        for (var i = 0; i <= file_titles.length; i++) {
+            if ($(file_titles[i]).text().toLowerCase().includes(e.target.value.toLowerCase())) {
+                file_titles[i].parentElement.parentElement.classList.remove("hidden")
+            } else {
+                file_titles[i].parentElement.parentElement.classList.add("hidden")
+            }
+        }
+    })
+
+    $(".open_add_file_form").click(() => {
+        $(".add_file_form_holder").removeClass("hidden")
+        $(".close").css({ "margin-top": `-${$(".add_file_form").height() * 1.08}px`, "margin-left": `${$(".add_file_form").width() * 1.03}px` })
+    })
+    $(".close").click(() => {
+        $(".add_file_form_holder").addClass("hidden")
+    })
+</script>
+
+<script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
 {% endblock main %}
