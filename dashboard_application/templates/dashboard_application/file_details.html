@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block main %}
 <div class="w-full pb-9 px-3 md:px-6">
@@ -63,8 +63,32 @@
     <div class="dashboard p-3">
         <div class="block lg:flex gap-x-3">
             <div class="flex-1 flex flex-wrap">
-
-                <div class="w-1/2 p-2 flex">
+                
+                {% for card in cards %}
+                    
+                    {% if not forloop.counter > 4 %}
+                    <div class="w-full md:w-1/2 p-2 flex">
+                        <div
+                            class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
+                            <p class="text-2xl font-medium data_display flex-1">0</p>
+    
+                            <div class="text-right">
+                                <span class="action hidden">{{card.action}}</span>
+                                <span class="data_column hidden">{{card.data_column}}</span>
+                                <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                                        class="fas fa-pencil text-sm"></i></button><br>
+                                <span class="w-full">{{card.title}}</span>
+                            </div>
+                        </div>
+                        <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                                class="fas fa-pencil text-sm"></i></button>
+                    </div>
+                    {% endif %}
+                    
+                {% endfor %}
+                
+                {% if no_of_card_data < 1 %}
+                <div class="w-full md:w-1/2 p-2 flex">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -78,8 +102,10 @@
                     <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
+                {% endif %}
 
-                <div class="w-1/2 p-2 flex">
+                {% if no_of_card_data < 2 %}
+                <div class="w-full md:w-1/2 p-2 flex">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -93,8 +119,10 @@
                     <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
+                {% endif %}
 
-                <div class="w-1/2 p-2 flex">
+                {% if no_of_card_data < 3 %}
+                <div class="w-full md:w-1/2 p-2 flex">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -108,8 +136,10 @@
                     <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
+                {% endif %}
 
-                <div class="w-1/2 p-2 flex">
+                {% if no_of_card_data < 4 %}
+                <div class="w-full md:w-1/2 p-2 flex">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -123,6 +153,7 @@
                     <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
+                {% endif %}
 
             </div>
 
@@ -134,6 +165,15 @@
                             class="fas fa-pencil text-sm"></i></button>
                     </div>
                 </div>
+                <div class="hidden">
+                    <ul class="chart_1_data">
+                        {% for chart in charts %}                            
+                            {% if not forloop.counter > 1 %}
+                            <li><span id="chart_1_title">{{chart.title}}</span> <span id="chart_1_y_axis">{{chart.data_y}}</span> <span id="chart_1_x_axis">{{chart.data_x}}</span> <span id="chart_1_group_common_data">{{chart.group_common_data}}</span></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
         
@@ -141,7 +181,31 @@
 
             <div class="w-full flex flex-wrap">
 
-                <div class="w-1/2 lg:w-1/3 p-2 flex">
+                {% for card in cards %}
+                    
+                    {% if not forloop.counter < 5 %}
+                    <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
+                        <div
+                            class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
+                            <p class="text-2xl font-medium data_display flex-1">0</p>
+    
+                            <div class="text-right">
+                                <span class="action hidden">{{card.action}}</span>
+                                <span class="data_column hidden">{{card.data_column}}</span>
+                                <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                                        class="fas fa-pencil text-sm"></i></button><br>
+                                <span class="w-full">{{card.title}}</span>
+                            </div>
+                        </div>
+                        <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                                class="fas fa-pencil text-sm"></i></button>
+                    </div>
+                    {% endif %}
+                    
+                {% endfor %}
+
+                {% if no_of_card_data < 5 %}
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -155,8 +219,10 @@
                     <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
+                {% endif %}
 
-                <div class="w-1/2 lg:w-1/3 p-2 flex">
+                {% if no_of_card_data < 6 %}
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -170,8 +236,10 @@
                     <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
+                {% endif %}
 
-                <div class="w-1/2 lg:w-1/3 p-2 flex">
+                {% if no_of_card_data < 7 %}
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -185,8 +253,10 @@
                     <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
+                {% endif %}
 
-                <div class="w-1/2 lg:w-1/3 p-2 flex">
+                {% if no_of_card_data < 8 %}
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -200,8 +270,10 @@
                     <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
+                {% endif %}
 
-                <div class="w-1/2 lg:w-1/3 p-2 flex">
+                {% if no_of_card_data < 9 %}
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -215,8 +287,10 @@
                     <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
+                {% endif %}
 
-                <div class="w-1/2 lg:w-1/3 p-2 flex">
+                {% if no_of_card_data < 10 %}
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -230,6 +304,7 @@
                     <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
+                {% endif %}
 
             </div>
 
@@ -237,9 +312,19 @@
                 <div class="p-2">
                     <div class="p-3 bg-white shadow-md rounded-md flex">
                         <canvas id="chart2" class="flex-1" style="max-width: 100%; height: 400px;"></canvas>
+
                         <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute"><i
                             class="fas fa-pencil text-sm"></i></button>
                     </div>
+                </div>
+                <div class="hidden">
+                    <ul class="chart_2_data">
+                        {% for chart in charts %}                            
+                            {% if not forloop.counter < 2 %}
+                            <li><span id="chart_2_title">{{chart.title}}</span> <span id="chart_2_y_axis">{{chart.data_y}}</span> <span id="chart_2_x_axis">{{chart.data_x}}</span> <span id="chart_2_group_common_data">{{chart.group_common_data}}</span></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
 
@@ -248,7 +333,7 @@
 
     <!-- TABLE -->
     <div class="bg-white rounded-md overflow-x-auto table_cont hidden">
-        <table class="table-auto">
+        <table class="table-auto min-w-full">
             <thead class="bg-gray-50">
                 <tr>
                     <th style="min-width: 70px !important;">S/N</th>
@@ -375,240 +460,6 @@
         $("#select_table_columns").toggleClass("hidden absolute")
     })
 
-    // SELECT ALL QUERY
-    $(".select_all").click(() => {
-        var checkboxes = $(".select_filters input")
-        for (var checkbox_index = 0; checkbox_index < checkboxes.length; checkbox_index++) {
-            checkboxes[checkbox_index].checked = false
-
-            checkboxes[checkbox_index].parentElement.classList.add('border-indigo-500')
-            checkboxes[checkbox_index].parentElement.classList.remove('border-gray-300')
-
-            var table_heads = $("thead th")
-            var table_data_rows = $("tbody tr")
-
-            for (var i = 0; i < table_heads.length; i++) {
-                if (table_heads[i].textContent == checkboxes[checkbox_index].parentElement.children[1].textContent) {
-                    table_heads[i].classList.remove('hidden')
-                    for (var row = 0; row < table_data_rows.length; row++) {
-                        table_data_rows[row].children[i].classList.remove('hidden')
-                    }
-                }
-            }
-
-        }
-        $(".select_all").addClass("hidden")
-        $(".deselect_all").removeClass("hidden")
-    })
-
-    // DESELECT ALL QUERY
-    $(".deselect_all").click(() => {
-        var checkboxes = $(".select_filters input")
-        for (var checkbox_index = 0; checkbox_index < checkboxes.length; checkbox_index++) {
-            checkboxes[checkbox_index].checked = false
-
-            checkboxes[checkbox_index].parentElement.classList.remove('border-indigo-500')
-            checkboxes[checkbox_index].parentElement.classList.add('border-gray-300')
-
-            var table_heads = $("thead th")
-            var table_data_rows = $("tbody tr")
-
-            for (var i = 0; i < table_heads.length; i++) {
-                if (table_heads[i].textContent == checkboxes[checkbox_index].parentElement.children[1].textContent) {
-                    table_heads[i].classList.add('hidden')
-                    for (var row = 0; row < table_data_rows.length; row++) {
-                        table_data_rows[row].children[i].classList.add('hidden')
-                    }
-                }
-            }
-
-        }
-        $(".deselect_all").addClass("hidden")
-        $(".select_all").removeClass("hidden")
-    })
-
-    // SELECT QUERY FILTERS
-    $(".select_filters input").change((e) => {
-        if (e.target.parentElement.children[0].checked) {
-            e.target.parentElement.classList.remove('border-gray-300')
-            e.target.parentElement.classList.add('border-indigo-500')
-
-            var table_heads = $("thead th")
-            var table_data_rows = $("tbody tr")
-
-            for (var i = 0; i < table_heads.length; i++) {
-                if (table_heads[i].textContent == e.target.parentElement.children[1].textContent) {
-                    table_heads[i].classList.remove('hidden')
-                    for (var row = 0; row < table_data_rows.length; row++) {
-                        table_data_rows[row].children[i].classList.remove('hidden')
-                    }
-                }
-            }
-
-        } else {
-            e.target.parentElement.classList.remove('border-indigo-500')
-            e.target.parentElement.classList.add('border-gray-300')
-
-            var table_heads = $("thead th")
-            var table_data_rows = $("tbody tr")
-
-            for (var i = 0; i < table_heads.length; i++) {
-                if (table_heads[i].textContent == e.target.parentElement.children[1].textContent) {
-                    table_heads[i].classList.add('hidden')
-                    for (var row = 0; row < table_data_rows.length; row++) {
-                        table_data_rows[row].children[i].classList.add('hidden')
-                    }
-                }
-            }
-
-        }
-    })
-
-    // SET NEW COLUMN NAME FOR FILTERS
-    function setFilterColumnName() {
-        var filter_cont = $(".column_filters")
-        for (var column_index = 0; column_index < filter_cont.length; column_index++) {
-            var heading_words = $(filter_cont[column_index].children[0].children[0]).text().split(" ")
-            var newheading = ""
-
-            for (let word_index = 0; word_index < heading_words.length; word_index++) {
-                if (word_index == 0) {
-                    newheading = heading_words[word_index]
-                } else {
-                    newheading = newheading + "_" + heading_words[word_index]
-                }
-            }
-            $(filter_cont[column_index].children[0].children[1]).text(newheading)
-        }
-    }
-    setFilterColumnName()
-
-    // FILTER COLUMNS
-
-    // ON OPERATOR CHANGE
-    $(".column_filters select").change((e) => {
-        var table_heads = $("thead th")
-        var table_data_rows = $("tbody tr")
-
-        var queries = []
-        var operator_values = []
-        var query = $(".query")
-        for (let query_index = 0; query_index < query.length; query_index++) {
-            queries.push(query[query_index].value)
-            operator_values.push(query[query_index].parentElement.children[2].value)
-        }
-
-        for (var i = 0; i < table_heads.length; i++) {
-            if (table_heads[i].textContent == e.target.parentElement.children[0].textContent) {
-                for (var row = 0; row < table_data_rows.length; row++) {
-                    // filterColumns(e.target.value, operator_value, table_data_rows[row], i)
-                    filterColumns(queries, operator_values, table_data_rows[row], i)
-                }
-            }
-        }
-    })
-
-    // ON TEXT CHANGE
-    $(".column_filters .query").keyup((e) => {
-        var table_heads = $("thead th")
-        var table_data_rows = $("tbody tr")
-
-        var queries = []
-        var operator_values = []
-        var query = $(".query")
-        for (let query_index = 0; query_index < query.length; query_index++) {
-            queries.push(query[query_index].value)
-            operator_values.push(query[query_index].parentElement.children[2].value)
-        }
-
-        for (var i = 0; i < table_heads.length; i++) {
-            if (table_heads[i].textContent == e.target.parentElement.children[0].textContent) {
-                for (var row = 0; row < table_data_rows.length; row++) {
-                    // filterColumns(e.target.value, operator_value, table_data_rows[row], i)
-                    filterColumns(queries, operator_values, table_data_rows[row], i)
-                }
-            }
-        }
-    })
-
-    // FILTER FUNCTION
-    function filterColumns(queries, operator_values, row, i) {
-        var satisfied_queries = []
-        for (var index = 0; index < queries.length; index++) {
-            if (operator_values[index] == "contains") {
-                if (row.children[index + 1].textContent.toLowerCase().includes(queries[index].toLowerCase()) || queries[index] == "" || queries[index] == " ") {
-                    // row.classList.remove('hidden')
-                    satisfied_queries.push(true)
-                } else {
-                    // row.classList.add('hidden')
-                    satisfied_queries.push(false)
-                }
-            } else if (operator_values[index] == "==") {
-                if (row.children[index + 1].textContent == queries[index] || queries[index] == "" || queries[index] == " ") {
-                    // row.classList.remove('hidden')
-                    satisfied_queries.push(true)
-                } else {
-                    // row.classList.add('hidden')
-                    satisfied_queries.push(false)
-                }
-            } else if (operator_values[index] == ">") {
-                if (parseFloat(row.children[index + 1].textContent) > parseFloat(queries[index]) || queries[index] == "" || queries[index] == " ") {
-                    // row.classList.remove('hidden')
-                    satisfied_queries.push(true)
-                } else {
-                    // row.classList.add('hidden')
-                    satisfied_queries.push(false)
-                }
-            } else if (operator_values[index] == "<") {
-                if (parseFloat(row.children[index + 1].textContent) < parseFloat(queries[index]) || queries[index] == "" || queries[index] == " ") {
-                    // row.classList.remove('hidden')
-                    satisfied_queries.push(true)
-                } else {
-                    // row.classList.add('hidden')
-                    satisfied_queries.push(false)
-                }
-            } else if (operator_values[index] == ">=") {
-                if (parseFloat(row.children[index + 1].textContent) >= parseFloat(queries[index]) || queries[index] == "" || queries[index] == " ") {
-                    // row.classList.remove('hidden')
-                    satisfied_queries.push(true)
-                } else {
-                    // row.classList.add('hidden')
-                    satisfied_queries.push(false)
-                }
-            } else if (operator_values[index] == "<=") {
-                if (parseFloat(row.children[index + 1].textContent) <= parseFloat(queries[index]) || queries[index] == "" || queries[index] == " ") {
-                    // row.classList.remove('hidden')
-                    satisfied_queries.push(true)
-                } else {
-                    // row.classList.add('hidden')
-                    satisfied_queries.push(false)
-                }
-            } else if (operator_values[index] == "!=") {
-                if (row.children[index + 1].textContent != queries[index] || queries[index] == "" || queries[index] == " ") {
-                    // row.classList.remove('hidden')
-                    satisfied_queries.push(true)
-                } else {
-                    // row.classList.add('hidden')
-                    satisfied_queries.push(false)
-                }
-            }
-        }
-        is_satisfied = true
-        for (var i = 0; i < satisfied_queries.length; i++) {
-            if (is_satisfied == satisfied_queries[i] && satisfied_queries[i] == true) {
-                is_satisfied = true
-            } else {
-                is_satisfied = false
-            }
-        }
-
-        if (is_satisfied == true) {
-            row.classList.remove('hidden')
-        } else {
-            row.classList.add('hidden')
-        }
-    }
-
     // FILTER TOGGLE CONTROLS
     $(".filter_btn").click(() => $(".column_filters_holder").addClass("active"))
     $(".close_filters").click(() => $(".column_filters_holder").removeClass("active"))
@@ -626,88 +477,13 @@
         $(".dashboard").addClass('hidden')
         $(".side_menu").removeClass("active")
     })
-
-    const first_setdata = {
-        labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-        datasets: [
-            {
-                label: 'Dataset 1',
-                data: [5, 10, 12, 8, 15],
-                backgroundColor: [],
-            }
-        ]
-    };
-    for(let data_index = 0; data_index < first_setdata.datasets[0].data.length; data_index++){
-        first_setdata.datasets[0].backgroundColor.push(`rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, .5)`)
-    }
-
-    const first_config = {
-        type: 'doughnut',
-        data: first_setdata,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'right',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart 1',
-                    align: 'start',
-                    color: '#333',
-                    position: 'bottom'
-                }
-            },
-            maintainAspectRatio: true,
-        },
-    };
-
-    const myChart = new Chart(
-        document.getElementById('chart1'),
-        config = first_config
-    );
-
-
-    const second_setdata = {
-        labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Red', 'Orange', 'Yellow', 'Green', 'Blue'],
-        datasets: [
-            {
-                label: 'Dataset 1',
-                data: [5, 10, 12, 8, 15, 5, 10, 12, 8, 15],
-                backgroundColor: [],
-            }
-        ]
-    };
-    for(let data_index = 0; data_index < second_setdata.datasets[0].data.length; data_index++){
-        second_setdata.datasets[0].backgroundColor.push(`rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, .5)`)
-    }
-
-    const second_config = {
-        type: 'bar',
-        data: second_setdata,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false,
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Chart 2',
-                    padding: 20,
-                    color: '#333',
-                }
-            }
-        },
-    };
-
-    const myChart2 = new Chart(
-        document.getElementById('chart2'),
-        config = second_config
-    );
-
+    
 </script>
+
+<script src="{% static 'js/table_select_query_settings.js' %}"></script>
+<script src="{% static 'js/table_filter_settings.js' %}"></script>
+<script src="{% static 'js/dashboard_card_settings.js' %}"></script>
+<script src="{% static 'js/chart_settings.js' %}"></script>
 
 <script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script>
 {% endblock main %}
