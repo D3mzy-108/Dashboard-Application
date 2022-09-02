@@ -6,7 +6,7 @@
     <div class="w-full max-w-md bg-white p-4 rounded-md">
         <div class="flex">
             <a href="{% url 'file_details' file_id %}" class="close mr-3"><i class="fas fa-arrow-left"></i></a>
-            <span class="text-lg text-medium">Create Card Data</span>
+            <span class="text-lg text-medium">Edit Displayed Data</span>
         </div>
         <form action="" method="post">
             {% csrf_token %}
@@ -29,10 +29,42 @@
             </div>
             {% endif %}
 
+            {% if form.data_x %}
+            <div class="mt-3">
+                <label for="id_data_x">Abscissa (x axis):</label>
+                <select name="data_x" id="id_data_x">
+                    {% for heading in headings %}
+                        <option value="{{heading}}">{{heading}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+
+            {% if form.data_y %}
+            <div class="mt-3">
+                <label for="id_data_y">Ordinate (y axis):</label><br>
+                <small>Note* select a column with integer values in them</small>
+                <select name="data_y" id="id_data_y">
+                    {% for heading in headings %}
+                        <option value="{{heading}}">{{heading}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+
             {% if form.action %}
             <div class="mt-3">
                 <label for="id_action">Perform action on data:</label>
                 {{form.action}}
+            </div>
+            {% endif %}
+
+            {% if form.group_common_data %}
+            <div class="mt-3">
+                <div class="flex">
+                    {{form.group_common_data}}
+                    <label for="id_group_common_data" class="ml-2">Group similar data</label>
+                </div>
             </div>
             {% endif %}
 
@@ -45,10 +77,24 @@
 <script>
     $("select").addClass("mt-2 w-full border px-2 py-1 focus:border-blue-300 focus:outline-none text-gray-700")
     $("#id_data_column option").removeAttr("selected")
-    options = $("#id_data_column option")
+    var options = $("#id_data_column option")
     for(let i = 0; i < options.length; i++){
         if($(options[i]).text().includes("{{selected_data_column}}")){
             $(options[i]).attr('selected', 'selected')
+        }
+    }
+
+    var data_y = $("#id_data_y option")
+    for(let i = 0; i < data_y.length; i++){
+        if($(data_y[i]).text().includes("{{selected_data_y}}")){
+            $(data_y[i]).attr('selected', 'selected')
+        }
+    }
+
+    var data_x = $("#id_data_x option")
+    for(let i = 0; i < data_x.length; i++){
+        if($(data_x[i]).text().includes("{{selected_data_x}}")){
+            $(data_x[i]).attr('selected', 'selected')
         }
     }
 </script>
