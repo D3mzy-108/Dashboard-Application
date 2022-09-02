@@ -75,20 +75,20 @@
                             <div class="text-right">
                                 <span class="action hidden">{{card.action}}</span>
                                 <span class="data_column hidden">{{card.data_column}}</span>
-                                <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
-                                        class="fas fa-pencil text-sm"></i></button><br>
+                                <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="w-8 h-8 py-1 text-center rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                                        class="fas fa-pencil text-sm"></i></a><br>
                                 <span class="w-full">{{card.title}}</span>
                             </div>
                         </div>
-                        <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
-                                class="fas fa-pencil text-sm"></i></button>
+                        <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="w-8 h-8 flex justify-center items-center rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                                class="fas fa-pencil text-sm"></i></a>
                     </div>
                     {% endif %}
                     
                 {% endfor %}
                 
                 {% if no_of_card_data < 1 %}
-                <div class="w-full md:w-1/2 p-2 flex">
+                <div class="w-full md:w-1/2 p-2 flex blank_card">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -105,7 +105,7 @@
                 {% endif %}
 
                 {% if no_of_card_data < 2 %}
-                <div class="w-full md:w-1/2 p-2 flex">
+                <div class="w-full md:w-1/2 p-2 flex blank_card">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -122,7 +122,7 @@
                 {% endif %}
 
                 {% if no_of_card_data < 3 %}
-                <div class="w-full md:w-1/2 p-2 flex">
+                <div class="w-full md:w-1/2 p-2 flex blank_card">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -139,7 +139,7 @@
                 {% endif %}
 
                 {% if no_of_card_data < 4 %}
-                <div class="w-full md:w-1/2 p-2 flex">
+                <div class="w-full md:w-1/2 p-2 flex blank_card">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -192,20 +192,20 @@
                             <div class="text-right">
                                 <span class="action hidden">{{card.action}}</span>
                                 <span class="data_column hidden">{{card.data_column}}</span>
-                                <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
-                                        class="fas fa-pencil text-sm"></i></button><br>
+                                <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="h-8 w-8 py-1 text-center rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                                    class="fas fa-pencil text-sm"></i></a><br>
                                 <span class="w-full">{{card.title}}</span>
                             </div>
                         </div>
-                        <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
-                                class="fas fa-pencil text-sm"></i></button>
+                        <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="w-8 h-8 flex justify-center items-center rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                            class="fas fa-pencil text-sm"></i></a>
                     </div>
                     {% endif %}
                     
                 {% endfor %}
 
                 {% if no_of_card_data < 5 %}
-                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex blank_card">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -222,7 +222,7 @@
                 {% endif %}
 
                 {% if no_of_card_data < 6 %}
-                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex blank_card">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -239,7 +239,7 @@
                 {% endif %}
 
                 {% if no_of_card_data < 7 %}
-                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex blank_card">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -256,7 +256,7 @@
                 {% endif %}
 
                 {% if no_of_card_data < 8 %}
-                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex blank_card">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -273,7 +273,7 @@
                 {% endif %}
 
                 {% if no_of_card_data < 9 %}
-                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex blank_card">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -290,7 +290,7 @@
                 {% endif %}
 
                 {% if no_of_card_data < 10 %}
-                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex">
+                <div class="w-full md:w-1/2 lg:w-1/3 p-2 flex blank_card">
                     <div
                         class="p-6 bg-white shadow-md rounded-md md:flex flex-1 justify-between items-center text-gray-900 hover:bg-blue-300 hover:text-white">
                         <span class="text-3xl font-medium flex-1">0</span>
@@ -405,6 +405,42 @@
     {% endfor %}
 </div>
 
+<!-- ADD CARD POPUP -->
+<div class="fixed top-0 left-0 w-full h-full add_form_popup z-30 flex justify-center items-center hidden" style="background: rgba(0, 0, 0, .3);">
+    <div class="w-full max-w-md bg-white p-4 rounded-md">
+        <div class="flex">
+            <span class="text-lg text-medium">Create Card Data</span>
+            <button class="close ml-auto"><i class="fas fa-times"></i></button>
+        </div>
+        <form action="{% url 'add_card' uploaded_file.id %}" method="post">
+            {% csrf_token %}
+            <div class="mt-3">
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title" class="mt-2 w-full border px-2 py-1 focus:border-blue-300 focus:outline-none" placeholder="Title:" required>
+            </div>
+            <div class="mt-3">
+                <label for="data_column">Select column</label>
+                <select name="data_column" id="data_column" class="mt-2 w-full border px-2 py-1 focus:border-blue-300 focus:outline-none text-gray-700" required>
+                    
+                    {% for heading in headings %}
+                    <option value="{{heading}}">{{heading}}</option>
+                    {% endfor %}
+                        
+                </select>
+            </div>
+            <div class="mt-3">
+                <label for="action">Perform action:</label>
+                <select name="action" id="action" class="mt-2 w-full border px-2 py-1 focus:border-blue-300 focus:outline-none text-gray-700" required>
+                    <option value="len">Count row length</option>
+                    <option value="sum">Sum column data</option>
+                    <option value="avg">Average column data</option>
+                </select>
+            </div>
+            <button type="submit" class="px-5 py-1 bg-blue-400 text-white mt-6 hover:bg-blue-500"><i class="fas fa-sd-card mr-2"></i>Save</button>
+        </form>
+    </div>
+</div>
+
 <style>
     table td,
     table th {
@@ -476,6 +512,14 @@
         $(".table_cont").removeClass('hidden')
         $(".dashboard").addClass('hidden')
         $(".side_menu").removeClass("active")
+    })
+
+    // ADD CARD FORM TOGGLER
+    $(".blank_card button").click(() => {
+        $(".add_form_popup").removeClass("hidden")
+    })
+    $(".add_form_popup .close").click(() => {
+        $(".add_form_popup").addClass("hidden")
     })
     
 </script>
