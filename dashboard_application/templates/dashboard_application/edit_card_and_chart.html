@@ -59,6 +59,13 @@
             </div>
             {% endif %}
 
+            {% if form.chart_type %}
+            <div class="mt-3">
+                <label for="id_chart_type">Chart type:</label>
+                {{form.chart_type}}
+            </div>
+            {% endif %}
+
             {% if form.group_common_data %}
             <div class="mt-3">
                 <div class="flex">

@@ -14,7 +14,12 @@ for (let i = 0; i < data_columns.length; i++) {
                 if (actions[i].textContent == "len") {
                     $(data_display_container[i]).text(row_index + 1)
                 } else if (actions[i].textContent == "sum") {
-                    sum = sum + parseInt(table_body_rows[row_index].children[column_index].textContent)
+                    var cell_data = $(table_body_rows[row_index].children[column_index]).text().split(",")
+                    var compiled_cell_data = ""
+                    for (let cell_data_index = 0; cell_data_index < cell_data.length; cell_data_index++) {
+                        compiled_cell_data = compiled_cell_data + "" + cell_data[cell_data_index]
+                    }
+                    sum = sum + parseInt(compiled_cell_data)
                     var sum_text_format = ""
 
                     var runs = 0
@@ -28,7 +33,12 @@ for (let i = 0; i < data_columns.length; i++) {
                     }
                     $(data_display_container[i]).text(sum_text_format)
                 } else if (actions[i].textContent == "avg") {
-                    sum = sum + parseInt(table_body_rows[row_index].children[column_index].textContent)
+                    var cell_data = $(table_body_rows[row_index].children[column_index]).text().split(",")
+                    var compiled_cell_data = ""
+                    for (let cell_data_index = 0; cell_data_index < cell_data.length; cell_data_index++) {
+                        compiled_cell_data = compiled_cell_data + "" + cell_data[cell_data_index]
+                    }
+                    sum = sum + parseInt(compiled_cell_data)
                     avg = sum / (row_index + 1)
                     var avg_text_format = ""
 

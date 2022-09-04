@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<div class="h-full absolute w-full grid content-center text-center login-bg">
+    <div class="flex mx-auto overflow-hidden w-full max-w-md bg-white rounded-lg shadow ">
+        <form class="w-full p-8 border" method="post">
+            {% csrf_token %}
+            <h5 class="text-2xl text-center text-aptechRed font-jost font-medium">Hello there!</h5>
+
+            <div class="mt-8">
+                <label class="block mb-2 text-sm font-medium text-gray-600 text-left" for="LoggingUsernameAddress">Username</label>
+                <input id="LoggingUsernameAddress"
+                    class="block font-medium w-full px-4 py-2 text-gray-700 bg-white border-2 border-gray-500 rounded-md focus:border-blue-900 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                    type="text" name="username" required>
+            </div>
+
+            <div class="mt-4">
+                <label class="block mb-2 text-sm font-medium text-gray-600 text-left" for="LoggingEmailAddress">Email Address</label>
+                <input id="LoggingEmailAddress"
+                    class="block font-medium w-full px-4 py-2 text-gray-700 bg-white border-2 border-gray-500 rounded-md focus:border-blue-900 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                    type="email" name="email" required>
+            </div>
+
+            <div class="mt-4">
+                <div class="flex justify-between">
+                    <label class="block mb-2 text-sm font-medium text-gray-600" for="loggingPassword1">Password</label>
+                </div>
+
+                <input id="loggingPassword1"
+                    class="block font-medium w-full px-4 py-2 text-gray-700 bg-white border-2 border-gray-500 rounded-md focus:border-blue-900 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                    type="password" name="password1" required>
+            </div>
+
+            <div class="mt-4">
+                <div class="flex justify-between">
+                    <label class="block mb-2 text-sm font-medium text-gray-600" for="loggingPassword2">Confirm Password</label>
+                </div>
+
+                <input id="loggingPassword2"
+                    class="block font-medium w-full px-4 py-2 text-gray-700 bg-white border-2 border-gray-500 rounded-md focus:border-blue-900 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                    type="password" name="password2" required>
+            </div>
+
+            <div class="mt-8">
+                <button type="submit"
+                    class="w-full font-jost px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-400 rounded hover:bg-blue-600 focus:outline-none focus:bg-gray-600">
+                    Create Account
+                </button>
+            </div>
+
+            <p class="text-center block mb-2 text-sm font-medium text-gray-600 mt-6">Already have an account? <a href="{% url 'login' %}" class="text-blue-500 underline hover:text-blue-700">Login.</a></p>
+        </form>
+    </div>
+
+
+</div>
+{% endblock main %}

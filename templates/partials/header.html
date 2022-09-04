@@ -1,0 +1,15 @@
+<header class="font-jost mx-6 md:mx-12 w-fit py-3 mt-3 flex justify-between">
+    <div class="flex">
+        <ion-icon name="{{icon}}" class="text-3xl mt-2 mr-2"></ion-icon>
+        <div>
+            <legend class="text-xl"><span class="greet text-3xl">{{greet}}</span><br> <span class="font-medium">{{request.user.username}}</span></legend>
+            <legend class="text-lg mt-2"><span>{{date_time}}</span></legend>
+        </div>
+    </div>
+    <span>{{time}}</span>
+    <a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i> <span class="hidden md:inline-block">Logout</span></a>
+</header>
+
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

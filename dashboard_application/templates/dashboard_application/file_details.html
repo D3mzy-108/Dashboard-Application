@@ -3,12 +3,15 @@
 
 {% block main %}
 <div class="w-full pb-9 px-3 md:px-6">
+    <div class="text-xl font-medium font-jost mt-4 text-center">{{uploaded_file.title}}</div>
     <div class="bg-gray-50 sticky top-0 z-10 flex items-center py-4">
+        <!-- BACK BUTTON -->
         <div>
             <a href="{% url 'home' %}" class="bg-white p-3 rounded-md hover:bg-blue-500 hover:text-white"
                 style="box-shadow: 3px 3px 0 0px rgb(200, 200, 200);"><i class="fas fa-arrow-left mr-1"></i></a>
         </div>
 
+        <!-- DASHBOARD SIDEMENU TOGGLER -->
         <div class="ml-3">
             <a href="#" class="p-3 rounded-md bg-white hover:bg-blue-500 hover:text-white open_side_menu"
                 style="box-shadow: 3px 3px 0 0px rgb(200, 200, 200);"><i class="fas fa-bars-staggered"></i></a>
@@ -44,17 +47,36 @@
             </div>
         </div>
 
+        <!-- FILTER BUTTON -->
         <div class="ml-auto">
             <a href="#" class="p-3 rounded-md bg-white hover:bg-blue-500 hover:text-white inline-block filter_btn"
                 style="box-shadow: 3px 3px 0 0px rgb(200, 200, 200);"><i class="fas fa-filter text-sm"></i> <span
                     class="hidden md:inline-block">Filters</span></a>
         </div>
 
+        <!-- MORE ACTIONS BUTTON -->
         <div class="ml-3">
-            <a href="{{downloadable_file}}"
-                class="p-3 rounded-md bg-white hover:bg-blue-500 hover:text-white inline-block"
-                style="box-shadow: 3px 3px 0 0px rgb(200, 200, 200);"><i class="fas fa-download text-sm"></i> <span
-                    class="hidden md:inline-block">Download</span></a>
+            <label for="show_more" class="p-3 rounded-md bg-white hover:bg-blue-500 hover:text-white inline-block"
+                style="box-shadow: 3px 3px 0 0px rgb(200, 200, 200);"><i class="fas fa-ellipsis text-sm"></i> <span
+                    class="hidden md:inline-block">More</span></label>
+            <input type="checkbox" name="" id="show_more" class="show_more hidden">
+            <label for="show_more" class="more hidden fixed top-0 left-0 w-full h-full flex justify-center items-center z-30" style="background: rgba(0, 0, 0, .3);">
+                <div class="w-full max-w-sm p-3 rounded-md bg-white">
+                    <span class="text-xl font-medium">More Actions:</span>
+                    <div class="grid grid-cols-2 gap-3 mt-3">
+                        <a href="{{downloadable_file}}"
+                            class="p-3 rounded-md bg-white hover:bg-blue-500 hover:text-white inline-block text-center"
+                            style="box-shadow: 3px 3px 0 0px rgb(200, 200, 200);">
+                            <i class="fas fa-download text-sm"></i> Download
+                        </a>
+                        <button
+                            class="p-3 rounded-md bg-white hover:bg-blue-500 hover:text-white inline-block"
+                            style="box-shadow: 3px 3px 0 0px rgb(200, 200, 200);" onclick="copyPageLink()">
+                            <i class="fas fa-copy text-sm"></i> Copy Link
+                        </button>
+                    </div>
+                </div>
+            </label>
         </div>
 
     </div>
@@ -75,12 +97,12 @@
                             <div class="text-right">
                                 <span class="action hidden">{{card.action}}</span>
                                 <span class="data_column hidden">{{card.data_column}}</span>
-                                <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="w-8 h-8 py-1 text-center rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                                <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="w-8 h-8 py-1 text-center rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                         class="fas fa-pencil text-sm"></i></a><br>
                                 <span class="w-full">{{card.title}}</span>
                             </div>
                         </div>
-                        <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="w-8 h-8 flex justify-center items-center rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                        <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="w-8 h-8 flex justify-center items-center rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                 class="fas fa-pencil text-sm"></i></a>
                     </div>
                     {% endif %}
@@ -94,12 +116,12 @@
                         <span class="text-3xl font-medium flex-1">0</span>
 
                         <div class="flex-1 text-right">
-                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></button><br>
                             <span class="w-full">Add Data</span>
                         </div>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
                 {% endif %}
@@ -111,12 +133,12 @@
                         <span class="text-3xl font-medium flex-1">0</span>
 
                         <div class="flex-1 text-right">
-                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></button><br>
                             <span class="w-full">Add Data</span>
                         </div>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
                 {% endif %}
@@ -128,12 +150,12 @@
                         <span class="text-3xl font-medium flex-1">0</span>
 
                         <div class="flex-1 text-right">
-                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></button><br>
                             <span class="w-full">Add Data</span>
                         </div>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
                 {% endif %}
@@ -145,12 +167,12 @@
                         <span class="text-3xl font-medium flex-1">0</span>
 
                         <div class="flex-1 text-right">
-                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></button><br>
                             <span class="w-full">Add Data</span>
                         </div>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
                 {% endif %}
@@ -161,11 +183,11 @@
                 <div class="p-2">
                     <div class="p-3 bg-white shadow-md rounded-md flex charts">
                         <canvas id="chart1" class="flex-1" style="max-width: 100%; max-height: 250px;"></canvas>
-                        {% if no_of_charts < 3 and no_of_charts is not 0 %}
-                        <a href="{% url 'edit_chart' uploaded_file.id first_chart_id %}" class="w-8 py-1 text-center rounded-full bg-blue-300 text-white absolute"><i
+                        {% if no_of_charts < 6 and no_of_charts is not 0 %}
+                        <a href="{% url 'edit_chart' uploaded_file.id first_chart_id %}" class="w-8 py-1 text-center rounded-full bg-blue-300 text-white absolute {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></a>
                         {% else %}
-                        <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute"><i
+                        <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                         {% endif %}
                     </div>
@@ -174,7 +196,7 @@
                     <ul class="chart_1_data">
                         {% for chart in charts %}                            
                             {% if not forloop.counter > 1 %}
-                            <li><span id="chart_1_title">{{chart.title}}</span> <span id="chart_1_y_axis">{{chart.data_y}}</span> <span id="chart_1_x_axis">{{chart.data_x}}</span> <span id="chart_1_group_common_data">{{chart.group_common_data}}</span></li>
+                            <li><span id="chart_1_title">{{chart.title}}</span> <span id="chart_1_type">{{chart.chart_type}}</span> <span id="chart_1_y_axis">{{chart.data_y}}</span> <span id="chart_1_x_axis">{{chart.data_x}}</span> <span id="chart_1_group_common_data">{{chart.group_common_data}}</span></li>
                             {% endif %}
                         {% endfor %}
                     </ul>
@@ -197,12 +219,12 @@
                             <div class="text-right">
                                 <span class="action hidden">{{card.action}}</span>
                                 <span class="data_column hidden">{{card.data_column}}</span>
-                                <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="h-8 w-8 py-1 text-center rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                                <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="h-8 w-8 py-1 text-center rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></a><br>
                                 <span class="w-full">{{card.title}}</span>
                             </div>
                         </div>
-                        <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="w-8 h-8 flex justify-center items-center rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                        <a href="{% url 'edit_card' uploaded_file.id card.id %}" class="w-8 h-8 flex justify-center items-center rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></a>
                     </div>
                     {% endif %}
@@ -216,12 +238,12 @@
                         <span class="text-3xl font-medium flex-1">0</span>
 
                         <div class="flex-1 text-right">
-                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></button><br>
                             <span class="w-full">Add Data</span>
                         </div>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
                 {% endif %}
@@ -233,12 +255,12 @@
                         <span class="text-3xl font-medium flex-1">0</span>
 
                         <div class="flex-1 text-right">
-                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></button><br>
                             <span class="w-full">Add Data</span>
                         </div>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
                 {% endif %}
@@ -250,12 +272,12 @@
                         <span class="text-3xl font-medium flex-1">0</span>
 
                         <div class="flex-1 text-right">
-                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></button><br>
                             <span class="w-full">Add Data</span>
                         </div>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
                 {% endif %}
@@ -267,12 +289,12 @@
                         <span class="text-3xl font-medium flex-1">0</span>
 
                         <div class="flex-1 text-right">
-                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></button><br>
                             <span class="w-full">Add Data</span>
                         </div>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
                 {% endif %}
@@ -284,12 +306,12 @@
                         <span class="text-3xl font-medium flex-1">0</span>
 
                         <div class="flex-1 text-right">
-                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></button><br>
                             <span class="w-full">Add Data</span>
                         </div>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
                 {% endif %}
@@ -301,12 +323,12 @@
                         <span class="text-3xl font-medium flex-1">0</span>
 
                         <div class="flex-1 text-right">
-                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block"><i
+                            <button class="w-8 h-8 rounded-full bg-blue-300 text-white hidden md:inline-block {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                                     class="fas fa-pencil text-sm"></i></button><br>
                             <span class="w-full">Add Data</span>
                         </div>
                     </div>
-                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden"><i
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute block md:hidden {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                 </div>
                 {% endif %}
@@ -316,13 +338,13 @@
             <div class="w-full">
                 <div class="p-2">
                     <div class="p-3 bg-white shadow-md rounded-md flex charts">
-                        <canvas id="chart2" class="flex-1" style="max-width: 100%; height: 400px;"></canvas>
+                        <canvas id="chart2" class="flex-1" style="max-width: 100%; height: 400px; max-height: 400px;"></canvas>
 
-                        {% if no_of_charts < 3 and no_of_charts > 1 %}
-                        <a href="{% url 'edit_chart' uploaded_file.id second_chart_id %}" class="w-8 py-1 text-center rounded-full bg-blue-300 text-white absolute"><i
+                        {% if no_of_charts < 6 and no_of_charts > 1 %}
+                        <a href="{% url 'edit_chart' uploaded_file.id second_chart_id %}" class="w-8 py-1 text-center rounded-full bg-blue-300 text-white absolute {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></a>
                         {% else %}
-                        <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute"><i
+                        <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
                             class="fas fa-pencil text-sm"></i></button>
                         {% endif %}
                     </div>
@@ -331,13 +353,93 @@
                     <ul class="chart_2_data">
                         {% for chart in charts %}                            
                             {% if not forloop.counter < 2 %}
-                            <li><span id="chart_2_title">{{chart.title}}</span> <span id="chart_2_y_axis">{{chart.data_y}}</span> <span id="chart_2_x_axis">{{chart.data_x}}</span> <span id="chart_2_group_common_data">{{chart.group_common_data}}</span></li>
+                            <li><span id="chart_2_title">{{chart.title}}</span> <span id="chart_2_type">{{chart.chart_type}}</span> <span id="chart_2_y_axis">{{chart.data_y}}</span> <span id="chart_2_x_axis">{{chart.data_x}}</span> <span id="chart_2_group_common_data">{{chart.group_common_data}}</span></li>
                             {% endif %}
                         {% endfor %}
                     </ul>
                 </div>
             </div>
 
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <!-- CHART 3 -->
+            <div class="w-full">
+                <div class="p-2">
+                    <div class="p-3 bg-white shadow-md rounded-md flex charts">
+                        <canvas id="chart3" class="flex-1" style="max-width: 100%; height: 400px; max-height: 400px;"></canvas>
+
+                        {% if no_of_charts < 6 and no_of_charts > 2 %}
+                        <a href="{% url 'edit_chart' uploaded_file.id third_chart_id %}" class="w-8 py-1 text-center rounded-full bg-blue-300 text-white absolute {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
+                            class="fas fa-pencil text-sm"></i></a>
+                        {% else %}
+                        <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
+                            class="fas fa-pencil text-sm"></i></button>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="hidden">
+                    <ul class="chart_3_data">
+                        {% for chart in charts %}                            
+                            {% if not forloop.counter < 3 %}
+                            <li><span id="chart_3_title">{{chart.title}}</span> <span id="chart_3_type">{{chart.chart_type}}</span> <span id="chart_3_y_axis">{{chart.data_y}}</span> <span id="chart_3_x_axis">{{chart.data_x}}</span> <span id="chart_3_group_common_data">{{chart.group_common_data}}</span></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CHART 4 -->
+            <div class="w-full">
+                <div class="p-2">
+                    <div class="p-3 bg-white shadow-md rounded-md flex charts">
+                        <canvas id="chart4" class="flex-1" style="max-width: 100%; height: 400px; max-height: 400px;"></canvas>
+
+                        {% if no_of_charts < 6 and no_of_charts > 3 %}
+                        <a href="{% url 'edit_chart' uploaded_file.id fourth_chart_id %}" class="w-8 py-1 text-center rounded-full bg-blue-300 text-white absolute {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
+                            class="fas fa-pencil text-sm"></i></a>
+                        {% else %}
+                        <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
+                            class="fas fa-pencil text-sm"></i></button>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="hidden">
+                    <ul class="chart_4_data">
+                        {% for chart in charts %}                            
+                            {% if not forloop.counter < 4 %}
+                            <li><span id="chart_4_title">{{chart.title}}</span> <span id="chart_4_type">{{chart.chart_type}}</span> <span id="chart_4_y_axis">{{chart.data_y}}</span> <span id="chart_4_x_axis">{{chart.data_x}}</span> <span id="chart_4_group_common_data">{{chart.group_common_data}}</span></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHART 5 -->
+        <div class="w-full">
+            <div class="p-2">
+                <div class="p-3 bg-white shadow-md rounded-md flex charts">
+                    <canvas id="chart5" class="flex-1" style="max-width: 100%; height: 400px; max-height: 400px;"></canvas>
+
+                    {% if no_of_charts < 6 and no_of_charts > 4 %}
+                    <a href="{% url 'edit_chart' uploaded_file.id fifth_chart_id %}" class="w-8 py-1 text-center rounded-full bg-blue-300 text-white absolute {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
+                        class="fas fa-pencil text-sm"></i></a>
+                    {% else %}
+                    <button class="w-8 h-8 rounded-full bg-blue-300 text-white absolute {% if not request.user.id is uploaded_file.user.id %}invisible{% endif %}"><i
+                        class="fas fa-pencil text-sm"></i></button>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="hidden">
+                <ul class="chart_5_data">
+                    {% for chart in charts %}                            
+                        {% if not forloop.counter < 5 %}
+                        <li><span id="chart_5_title">{{chart.title}}</span> <span id="chart_5_type">{{chart.chart_type}}</span> <span id="chart_5_y_axis">{{chart.data_y}}</span> <span id="chart_5_x_axis">{{chart.data_x}}</span> <span id="chart_5_group_common_data">{{chart.group_common_data}}</span></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -379,8 +481,14 @@
         <ul class="p-0">
             <li class="mt-3 flex"><button class="text-left hover:underline flex-1 show_dashboard"><i
                         class="fas fa-chart-pie mr-1 text-xl"></i><span class="text-lg">Dashboard</span></button></li>
+            {% if request.user.is_authenticated %}
+            
+            {% if request.user.id is uploaded_file.user.id %}
             <li class="mt-6 flex"><button class="text-left hover:underline flex-1 show_table"><i
-                        class="fas fa-table mr-1 text-xl"></i><span class="text-lg">Table</span></button></li>
+                class="fas fa-table mr-1 text-xl"></i><span class="text-lg">Table</span></button></li>
+            {% endif %}
+                
+            {% endif %}
         </ul>
     </div>
 </div>
@@ -486,10 +594,18 @@
                 </select>
             </div>
             <div class="mt-3">
+                <label for="chart_type">Chart Type:</label>
+                <select name="chart_type" id="chart_type" class="mt-2 w-full border px-2 py-1 focus:border-blue-300 focus:outline-none text-gray-700" required>
+                    <option value="bar">Bar Chart</option>
+                    <option value="line">Line Graph</option>
+                    <option value="doughnut">Doughnut Chart</option>
+                </select>
+            </div>
+            <div class="mt-3">
                 <div class="flex">
                     <input type="checkbox" class="mr-2 group" id="group">
                     <label for="group">Group Similar Data</label>
-                    <input type="text" name="group_common_data" id="group_common_data" class="hidden">
+                    <input type="text" name="group_common_data" id="group_common_data" class="hidden" value="False">
                 </div>
             </div>
             <button type="submit" class="w-1/2 px-5 py-1 bg-blue-400 text-white mt-8 hover:bg-blue-500"><i class="fas fa-sd-card mr-2"></i>Save</button>
@@ -590,7 +706,16 @@
             $("#group_common_data").val("False")
         }
     })
+
+    function copyPageLink(){
+        var copyText = window.location.href
+        console.log(copyText)
+        navigator.clipboard.writeText(copyText);
+        alert("Copied dashboard link")
+    }
     
+    $("#show_more").change(() => $(".more").toggleClass("hidden"))
+
 </script>
 
 <script src="{% static 'js/table_select_query_settings.js' %}"></script>

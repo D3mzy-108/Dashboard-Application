@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block main %}
+{% include 'partials/header.html' %}
 <div class="w-full">
     <main class="py-6 px-6 md:px-12">
 
@@ -20,6 +21,15 @@
         </div>
 
         <h5 class="mb-3 text-gray-500">My Files</h5>
+
+
+        {% if not files %}
+        <div class="mt-24 w-full text-center">
+            <ion-icon name="warning" class="text-6xl text-gray-300"></ion-icon>
+            <p class="text-gray-600">You have no files uploaded</p>
+        </div>
+        {% endif %}
+
 
         <!-- MY FILES -->
         {% for file in files %}
@@ -45,20 +55,69 @@
                         id="actions{{file.id}}">
                         <ul class="py-1" aria-labelledby="actions{{file.id}}">
                             <li>
-                                <a href="{{file.file.url}}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2"
+                                <a href="{{file.file.url}}"
+                                    class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2"
                                     style="width: 150px;">
                                     <i class="fas fa-download"></i>
                                     Download
                                 </a>
                             </li>
                             <li>
-                                <a href="{% url 'deletefile' file.id %}" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2"
+                                <label for="show_edit_form{{file.id}}"
+                                    class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2"
+                                    style="width: 150px;">
+                                    <i class="fas fa-pen-to-square"></i>
+                                    Change File
+                                </label>
+                            </li>
+                            <li>
+                                <a href="{% url 'deletefile' file.id %}"
+                                    class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2"
                                     style="width: 150px;">
                                     <i class="fas fa-trash text-red-600 py-2"></i>
                                     Delete
                                 </a>
                             </li>
                         </ul>
+                    </div>
+
+                    <!-- EDIT FORM POPUP -->
+                    <div>
+                        <input type="checkbox" name="" id="show_edit_form{{file.id}}" class="show_edit_form hidden">
+
+                        <div class="w-full fixed top-0 left-0 h-full flex justify-center items-center p-3 hidden edit_file_form_holder"
+                            style="background: rgba(0, 0, 0, .1);">
+                            <div class="relative">
+                                <div class="w-full max-w-md bg-white shadow-md p-3 rounded-md edit_file_form">
+                                    <div class="flex">
+                                        <div class="flex flex-1 items-center">
+                                            <i class="fas fa-plus p-2 bg-blue-400 text-white rounded-full"></i>
+                                            <span class="font-medium px-3 text-gray-900 text-lg">Change this file</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-6 pb-3">
+                                        <form action="{% url 'edit_file' file.id %}" method="post" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <input type="text mb-6"
+                                                class="w-full py-2 px-4 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                                                placeholder="Title" name="edit_title" required value="{{file.title}}">
+                                            <small>Old file: <span
+                                                    class="text-blue-500">{{file.file.url}}</span></small>
+                                            <input type="file"
+                                                class="w-full mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:outline-none focus:ring"
+                                                name="edit_file_input">
+                                            <div class="text-center">
+                                                <button class="py-2 px-6 mt-6 bg-blue-500 text-white rounded-md"
+                                                    type="submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <label for="show_edit_form{{file.id}}"
+                                    class="close w-8 h-8 flex justify-center items-center bg-gray-100 rounded-full border-4 border-white absolute -top-4 -right-4">&times;</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -72,7 +131,7 @@
     class="open_add_file_form fixed bottom-9 right-9 bg-white rounded-full w-12 h-12 shadow-lg hover:bg-blue-500 hover:text-white duration-150"><i
         class="fas fa-plus"></i></button>
 
-<div class="w-full absolute top-0 left-0 h-full flex justify-center items-center p-3 hidden add_file_form_holder"
+<div class="w-full fixed top-0 left-0 h-full flex justify-center items-center p-3 hidden add_file_form_holder"
     style="background: rgba(0, 0, 0, .1);">
     <div class="w-full max-w-md bg-white shadow-md p-3 rounded-md add_file_form">
         <div class="flex">
@@ -122,6 +181,10 @@
     })
     $(".close").click(() => {
         $(".add_file_form_holder").addClass("hidden")
+    })
+
+    $(".show_edit_form").change((e) => {
+        $(e.target.parentElement.children[1]).toggleClass('hidden')
     })
 </script>
 
