@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config,Csv
+from decouple import config, Csv
 import django_heroku
 import dj_database_url
 from django.contrib.messages import constants as messages
