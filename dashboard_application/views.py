@@ -15,7 +15,7 @@ def home(request):
     files = UploadedFile.objects.all().filter(user=request.user)
     hour = datetime.now().strftime("%H")
     date_time = datetime.now().strftime("%d/%m/%Y %H:%M %p")
-    
+
     if int(hour) < 12:
         greet = "Good morning"
         icon = "partly-sunny"
@@ -36,11 +36,12 @@ def home(request):
     return render(request, 'dashboard_application/home.html', context)
 
 
+@login_required
 def file_details(request, id):
     uploaded_file = UploadedFile.objects.get(id=id)
     file_url = uploaded_file.file.url[1:]
 
-    file = open(f"{file_url}", 'rb')
+    file = open(f"{file_url}", 'b')
     csvreader = csv.reader(file)
 
     headings = []
@@ -65,7 +66,7 @@ def file_details(request, id):
 
     for chart in dashboard_charts:
         charts.append(chart)
-    
+
     if len(charts) == 1:
         first_chart_id = charts[0].id
         second_chart_id = None
@@ -122,7 +123,6 @@ def file_details(request, id):
     return render(request, 'dashboard_application/file_details.html', context)
 
 
-@login_required
 def add_file(request):
     if request.method == "POST":
         title = request.POST['title']
@@ -141,9 +141,9 @@ def edit_file(request, id):
     if request.method == "POST":
         title = request.POST['edit_title']
         file = request.FILES['edit_file_input']
-        
+
         editting_file = UploadedFile.objects.get(id=id)
-        
+
         if file == "" or file == None:
             editting_file.title = title
             editting_file.save()
@@ -160,14 +160,13 @@ def edit_file(request, id):
 @login_required
 def delete_file(request, id):
     file = UploadedFile.objects.get(id=id)
-    if request.user.id is file.user.id:
+    if request.user.pk is file.user.pk:
         file.delete()
     else:
         messages.warning(request, "You are not permitted to delete this file")
     return redirect('home')
 
 
-@login_required
 def add_card(request, id):
     if request.method == "POST":
         title = request.POST['title']
