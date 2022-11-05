@@ -48,13 +48,10 @@ def file_details(request, id):
     for heading in next(csvreader):
         valid_heading = ""
         for character in heading:
-            if all(character):
+            if character.isalpha() or character.isnumeric() or character.isspace():
                 valid_heading += character
-                print(character)
         else:
             headings.append(valid_heading)
-    # headings = next(csvreader)
-    # print(next(csvreader))
 
     rows = []
     for row in csvreader:
