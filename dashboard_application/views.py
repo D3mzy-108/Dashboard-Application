@@ -45,7 +45,16 @@ def file_details(request, id):
     csvreader = csv.reader(file)
 
     headings = []
-    headings = next(csvreader)
+    for heading in next(csvreader):
+        valid_heading = ""
+        for character in heading:
+            if all(character):
+                valid_heading += character
+                print(character)
+        else:
+            headings.append(valid_heading)
+    # headings = next(csvreader)
+    # print(next(csvreader))
 
     rows = []
     for row in csvreader:
