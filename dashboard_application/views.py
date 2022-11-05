@@ -41,7 +41,7 @@ def file_details(request, id):
     uploaded_file = UploadedFile.objects.get(id=id)
     file_url = uploaded_file.file.url[1:]
 
-    file = open(f"{file_url}", 'b')
+    file = open(f"{file_url}", 'r')
     csvreader = csv.reader(file)
 
     headings = []
