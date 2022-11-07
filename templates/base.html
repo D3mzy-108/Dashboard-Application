@@ -15,6 +15,7 @@
 
     <!-- JQuery CDN -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/chart.js' %}"></script>
     <style>
         *{
             margin: 0;
@@ -26,5 +27,6 @@
 <body class="bg-gray-50">
     {% include 'partials/messages.html' %}
     {% block main %}{% endblock main %}
+    <script src="{% static 'js/flowbite.bundle.js' %}"></script>
 </body>
 </html>
