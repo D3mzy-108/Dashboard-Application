@@ -45,13 +45,7 @@ def file_details(request, id):
     csvreader = csv.reader(file)
 
     headings = []
-    for heading in next(csvreader):
-        valid_heading = ""
-        for character in heading:
-            if character.isalpha() or character.isnumeric() or character.isspace():
-                valid_heading += character
-        else:
-            headings.append(valid_heading)
+    headings = next(csvreader)
 
     rows = []
     for row in csvreader:
@@ -135,7 +129,8 @@ def add_file(request):
         file = request.FILES['file']
 
         if title is not None and file is not None:
-            UploadedFile(title=title, file=file, user=request.user).save()
+            UploadedFile(title=title, file=file,
+                         user=request.user).save()
             return redirect('home')
 
     else:
