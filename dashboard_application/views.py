@@ -36,7 +36,6 @@ def home(request):
     return render(request, 'dashboard_application/home.html', context)
 
 
-@login_required
 def file_details(request, id):
     uploaded_file = UploadedFile.objects.get(id=id)
     file_url = uploaded_file.file.url[1:]
