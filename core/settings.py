@@ -90,9 +90,14 @@ if config('MODE') == "dev":
     }
 else:
     DATABASES = {
-        'default': dj_database_url.config(
-            default=config('DATABASE_URL')
-        )
+        'default': {
+            'ENGINE': 'django.db.backend.postgresql',
+            'NAME': config('PGDATABASE'),
+            'USER': config('PGUSER'),
+            'PASSWORD': config('PGPASSWORD'),
+            'HOST': config('PGHOST'),
+            'PORT': config('PGPORT'),
+        }
     }
 
 db_from_env = dj_database_url.config(conn_max_age=500)
