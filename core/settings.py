@@ -91,7 +91,7 @@ if config('MODE') == "dev":
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backend.postgresql',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': config('PGDATABASE'),
             'USER': config('PGUSER'),
             'PASSWORD': config('PGPASSWORD'),
