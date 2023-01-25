@@ -44,7 +44,8 @@ def file_details(request, id):
     csvreader = csv.reader(file)
 
     headings = []
-    headings = next(csvreader)
+    for head in next(csvreader):
+        headings.append(head.encode("utf-8").strip())
 
     rows = []
     for row in csvreader:
