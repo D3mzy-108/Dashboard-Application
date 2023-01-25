@@ -1,0 +1,20 @@
+databases:
+  - name: csv-dashboard
+    databaseName: csv_dashboard_db
+    user: postgres
+
+services:
+  - type: web
+    name: csv-dashboard
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn core.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: csv-dashboard
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
