@@ -131,7 +131,7 @@ def add_file(request):
         title = request.POST['title']
         file = request.FILES['file']
 
-        if title is not None and file is not None and file.endswith(".csv"):
+        if title is not None and file is not None:
             UploadedFile(title=title, file=file,
                          user=request.user).save()
             return redirect('home')
