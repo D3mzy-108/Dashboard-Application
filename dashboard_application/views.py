@@ -42,14 +42,17 @@ def file_details(request, id):
 
     file = open(f"{file_url}", 'r')
     csvreader = csv.reader(file)
+    
+    all_rows = []
+    
+    for line in csvreader:
+        all_rows.append(line)
 
-    headings = []
-    for head in next(csvreader):
-        headings.append(head.encode("utf-8").strip())
+    headings = all_rows[0]
 
-    rows = []
-    for row in csvreader:
-        rows.append(row)
+    rows = all_rows[1:]
+    # for row in csvreader:
+    #     rows.append(row)
 
     dashboard_cards = DashboardCardSettings.objects.all().filter(
         uploaded_file=uploaded_file)
@@ -128,7 +131,7 @@ def add_file(request):
         title = request.POST['title']
         file = request.FILES['file']
 
-        if title is not None and file is not None:
+        if title is not None and file is not None and file.endswith(".csv"):
             UploadedFile(title=title, file=file,
                          user=request.user).save()
             return redirect('home')
